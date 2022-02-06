@@ -27,10 +27,28 @@ char pop(stack *stk){
     }
     return x;
 }
+int peek(stack stk, int i){
+    int x=-1;
+    if(stk.top-i+1<0 || i==0){
+        cout << "Invalid index" << endl;
+        return x;
+    }
+    x=stk.s[stk.top-i+1];
+    return x;
+}
+int stacktop(stack stk){
+    if(stk.top==-1) return -1;
+    else return stk.s[stk.top];
+}
 bool isempty(stack stk){
     if (stk.top==-1) return true;
     else return false;
 }
+bool isfull(stack stk){
+    if (stk.top==stk.size-1) return true;
+    else return false;
+}
+
 bool par_match(struct stack stk, char* exp){
     for(int i=0; exp[i]!='\0'; i++){
         if (exp[i]=='('){
@@ -52,6 +70,7 @@ int main() {
     s1.s=new char[s1.size];
     s1.top=-1;
     //initialising stack s1
+    cout << boolalpha;
     cout << par_match(s1, exp);
     return 0;
 

@@ -54,6 +54,12 @@ bool isfull(stack stk){
     else return false;
 }
 
+//infix to postfix +-*/ LR associativity
+
+//infix to postfix +-*/^ LR+RL associativity
+
+//evaluating the value of postfix
+
 int main() {
     int A[4] {};
     struct stack s1;
