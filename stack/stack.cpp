@@ -1,19 +1,14 @@
 #include <iostream>
 using namespace std;
 
-struct stack{
+struct stack {
     int size;
-    int top; //index of top element in the stack
-    int* s; //pointer to array for stack, allocated in heap
+    int top;
+    char* s;
 };
-// void create(struct stack* stk){
+struct stack s1;
 
-// }
-// void display(struct stack* stk){
-
-// }
-
-void push(stack *stk, int x){
+void push(stack *stk, char x){
     if(stk->top==stk->size-1)
         cout << "stack overflow";
     else{
@@ -21,8 +16,8 @@ void push(stack *stk, int x){
         stk->s[stk->top]=x;
     }
 }
-int pop(stack *stk){
-    int x=-1;
+char pop(stack *stk){
+    char x=' ';
     if(stk->top==-1){
         cout << "stack underflow ";
     }
@@ -32,58 +27,32 @@ int pop(stack *stk){
     }
     return x;
 }
-int peek(stack stk, int i){
-    int x=-1;
-    if(stk.top-i+1<0 || i==0){
-        cout << "Invalid index" << endl;
-        return x;
-    }
-    x=stk.s[stk.top-i+1];
-    return x;
-}
-int stacktop(stack stk){
-    if(stk.top==-1) return -1;
-    else return stk.s[stk.top];
-}
 bool isempty(stack stk){
     if (stk.top==-1) return true;
     else return false;
 }
-bool isfull(stack stk){
-    if (stk.top==stk.size-1) return true;
-    else return false;
+bool par_match(struct stack stk, char* exp){
+    for(int i=0; exp[i]!='\0'; i++){
+        if (exp[i]=='('){
+            push(&stk, exp[i]);
+        }
+        else if(exp[i]==')'){
+            if(stk.top==-1) return false;
+            pop(&stk);
+        }
+    }
+    return stk.top==-1?true:false;
 }
 
 int main() {
-    int A[4] {};
-    struct stack s1;
-    s1.size=4;
+
+    char* exp="((a+b)*(c+d))";
+    //initialising stack s1
+    s1.size=50;
+    s1.s=new char[s1.size];
     s1.top=-1;
-    s1.s=A;
-    cout << boolalpha;
-    // isempty(s1);
-    push(&s1,1);
-    // cout << isempty(s1) << endl;
-    push(&s1,12);
-    push(&s1,123);
-    push(&s1,1234);
-    cout << peek(s1, 0) << endl;
-    cout << peek(s1, 1) << endl;
-    cout << peek(s1, 2) << endl;
-    cout << peek(s1, 3) << endl;
-    cout << peek(s1, 4) << endl;
-    // cout << isfull(s1) << endl;
-    // push(&s1,1234);
-    // cout << isfull(s1) << endl;
-    // cout << stacktop(s1) << endl;
-    // cout << pop(&s1) << endl;
-    // cout << pop(&s1) << endl;
-    // cout << pop(&s1) << endl;
-    // cout << isempty(s1) << endl;
-    // cout << pop(&s1) << endl;
-    // cout << isempty(s1) << endl;
-    // cout << pop(&s1) << endl;
-    // cout << isempty(s1);
+    //initialising stack s1
+    cout << par_match(s1, exp);
     return 0;
 
 }
